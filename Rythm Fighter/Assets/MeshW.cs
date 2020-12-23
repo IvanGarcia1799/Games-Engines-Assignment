@@ -34,6 +34,27 @@ public class MeshW : MonoBehaviour
                 vertix++;
             }
         }
+
+        triangles = new int[xValue * zValue * 6];
+        
+        int vertiy = 0;
+        int trian = 0;
+        for(int j=0; j < zValue; j++)
+        {
+            for (int i = 0; i < xValue; i++)
+            {    
+                triangles[trian + 0] = vertiy + 0;
+                triangles[trian + 1] = vertiy + xValue + 1;
+                triangles[trian + 2] = vertiy + 1;
+                triangles[trian + 3] = vertiy + 1;
+                triangles[trian + 4] = vertiy + xValue + 1;
+                triangles[trian + 5] = vertiy + xValue + 2;
+
+                vertiy++;
+                trian += 6;
+            }
+            vertiy++;
+        }
     }
 
     void UpdateMesh()
@@ -44,16 +65,5 @@ public class MeshW : MonoBehaviour
         mesh.triangles = triangles;
 
         mesh.RecalculateNormals();
-    }
-
-    private void OnDrawGizmos() 
-    {
-        if(vertices == null)
-            return;
-
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            Gizmos.DrawSphere(vertices[i], .1f);
-        }
     }
 }
