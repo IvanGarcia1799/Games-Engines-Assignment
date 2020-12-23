@@ -30,7 +30,8 @@ public class MeshW : MonoBehaviour
         {
             for (int j = 0; j <= xValue; j++)
             {
-                vertices[vertix] = new Vector3(j, 0, i);
+                float y = Mathf.PerlinNoise(j * .3f, i * .3f) * 2f;
+                vertices[vertix] = new Vector3(j, y, i);
                 vertix++;
             }
         }
@@ -65,5 +66,6 @@ public class MeshW : MonoBehaviour
         mesh.triangles = triangles;
 
         mesh.RecalculateNormals();
+
     }
 }
