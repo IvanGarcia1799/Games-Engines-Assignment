@@ -10,7 +10,9 @@ public class OrbFollow : MonoBehaviour
     public Vector3 displace;
     public Vector3 orbStart;
     public Vector3 targetStart;
+    public Vector3 fixY;
     public float rotSpeed = 200;
+    public float scale = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +20,8 @@ public class OrbFollow : MonoBehaviour
         target = temp.transform;
         lastPos = target.position;
         targetStart = target.position;
-        orbStart = transform.position;
+        fixY = new Vector3(0,3f,0);
+        orbStart = transform.position + fixY;
     }
 
     // Update is called once per frame
@@ -29,11 +32,13 @@ public class OrbFollow : MonoBehaviour
             transform.Rotate(AudioAnalyzer.smoothedAmplitude * Time.deltaTime * rotSpeed, AudioAnalyzer.smoothedAmplitude * Time.deltaTime * rotSpeed, AudioAnalyzer.smoothedAmplitude * Time.deltaTime * rotSpeed);
             for(int i= 0; i<100; i++)
             {
+                Vector3 pos = orbStart;
+                pos.y = Mathf.Lerp(pos.y, 5f + (AudioAnalyzer.bands[1] * scale), Time.deltaTime * 1.0f);
+                orbStart.y=pos.y;
                 displace = target.transform.position - targetStart;
                 transform.position = Vector3.Lerp(transform.position, orbStart + displace, Time.deltaTime);
-                transform.LookAt(target.parent);
             }
         }
-        lastPos = target.transform.position;
+        lastPos = target.position;
     }    
 } 
