@@ -6,10 +6,13 @@ public class Follow : MonoBehaviour
 {
     public Transform target;
     public float scale = 3;
+    public GameObject temp;
     // Start is called before the first frame update
     void Start()
     {
-        
+        temp = GameObject.Find("Follower");
+        target= temp.transform;
+
     }
 
     // Update is called once per frame
