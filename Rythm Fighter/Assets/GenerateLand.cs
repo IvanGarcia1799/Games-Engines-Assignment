@@ -21,7 +21,7 @@ public class GenerateLand : MonoBehaviour
     public GameObject player;
 
     int planeSize = 20;
-    int renderSize = 4;
+    int renderSize = 10;
 
     Vector3 startPos;
 
