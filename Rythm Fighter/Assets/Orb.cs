@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Orb : MonoBehaviour
 {
-    public int elements = 50;
+    public int elements = 80;
     public int map = 0;
     public float radius = 3;
     public float scale = 10;
@@ -22,6 +22,8 @@ public class Orb : MonoBehaviour
             sp.transform.localScale = new Vector3(0.2f, 0.2f, 0.2f);
             Vector3 pos = new Vector3(Mathf.Sin(theta * i) * radius, 0, Mathf.Cos(theta * i) * radius);
             sp.transform.position = transform.TransformPoint(pos);
+            sp.GetComponent<Renderer>().material.color = 
+                Color.HSVToRGB(i / (float) elements, 1, 1);
             orbList.Add(sp);
         }
     }
@@ -30,12 +32,14 @@ public class Orb : MonoBehaviour
     void Update()
     {
         int curs = 0;
-        transform.Rotate(0, AudioAnalyzer.smoothedAmplitude * Time.deltaTime * rotSpeed, 0);
         for(int i = 0 ; i < orbList.Count ; i ++)
         {
+            Color orbColor = orbList[i].GetComponent<Renderer>().material.color;
+            orbColor.r = Mathf.Lerp(orbColor.r, 0.1f + (Mathf.Abs(AudioAnalyzer.spectrum[curs]) * scale), Time.deltaTime * 10);
+            orbList[i].GetComponent<Renderer>().material.color = orbColor;
             Vector3 lscale = orbList[i].transform.localScale; 
             lscale.y = Mathf.Lerp(lscale.y, 0.2f + (Mathf.Abs(AudioAnalyzer.spectrum[curs]) * scale), Time.deltaTime * 10);
-            lscale.x = Mathf.Lerp(lscale.y, 0.1f + (Mathf.Abs(AudioAnalyzer.spectrum[curs]) * scale), Time.deltaTime * 10);
+            lscale.x = Mathf.Lerp(lscale.x, 0.1f + (Mathf.Abs(AudioAnalyzer.spectrum[curs]) * scale), Time.deltaTime * 10);
             orbList[i].transform.localScale = lscale;
             curs += map;
         }

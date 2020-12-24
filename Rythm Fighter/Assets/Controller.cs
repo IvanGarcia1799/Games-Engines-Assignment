@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Controller : MonoBehaviour
 {
-    public float speed = 5;
+    public float speed = 50;
+        public float scale = 50;
     public float rotSpeed = 100;
     // Start is called before the first frame update
     void Start()
@@ -20,5 +21,9 @@ public class Controller : MonoBehaviour
 
         float r = Input.GetAxis("Horizontal");
         transform.Rotate(0, r * rotSpeed * Time.deltaTime, 0);
+
+        float newspeed = speed;
+        newspeed = Mathf.Lerp(newspeed, 1 + (AudioAnalyzer.bands[1] * scale), Time.deltaTime * 1.0f);
+        speed = newspeed;
     }
 }
