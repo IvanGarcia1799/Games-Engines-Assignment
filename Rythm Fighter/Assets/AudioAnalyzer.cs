@@ -49,11 +49,23 @@ public class AudioAnalyzer : MonoBehaviour
         }
         a.Play();
     }
+
     // Start is called before the first frame update
     void Start()
     {
         sampleRate = AudioSettings.outputSampleRate;
         binWidth = AudioSettings.outputSampleRate / 2 / frameSize;
+    }
+
+    public void GetAmplitude()
+    {
+        float total = 0;
+        for(int i = 0 ; i < wave.Length ; i ++)
+            {
+        total += Mathf.Abs(wave[i]);
+        }
+        amplitude = total / wave.Length;
+        smoothedAmplitude = Mathf.Lerp(smoothedAmplitude, amplitude, Time.deltaTime * 3);
     }
 
     void GetFrequencyBands()
@@ -74,19 +86,7 @@ public class AudioAnalyzer : MonoBehaviour
         }
 
     }
-
-    public void GetAmplitude()
-    {
-        float total = 0;
-        for(int i = 0 ; i < wave.Length ; i ++)
-            {
-        total += Mathf.Abs(wave[i]);
-        }
-        amplitude = total / wave.Length;
-        smoothedAmplitude = Mathf.Lerp(smoothedAmplitude, amplitude, Time.deltaTime * 3);
-  }
     
-
     // Update is called once per frame
     void Update()
     {
