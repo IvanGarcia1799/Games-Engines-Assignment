@@ -25,9 +25,12 @@ public class OrbFollow : MonoBehaviour
     {
         if(target.transform.position != lastPos)
         {
-            displace = target.transform.position - targetStart;
-            transform.position = Vector3.Lerp(transform.position, orbStart + displace, Time.deltaTime);
-            transform.LookAt(target.parent);
+            for(int i= 0; i<100; i++)
+            {
+                displace = target.transform.position - targetStart;
+                transform.position = Vector3.Lerp(transform.position, orbStart + displace, Time.deltaTime);
+                transform.LookAt(target.parent);
+            }
         }
         lastPos = target.transform.position;
     }    
