@@ -64,7 +64,6 @@ public class MeshW : MonoBehaviour
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
-
         mesh.RecalculateNormals();
         mesh.RecalculateBounds();
         MeshCollider meshCollider = gameObject.GetComponent<MeshCollider>();
