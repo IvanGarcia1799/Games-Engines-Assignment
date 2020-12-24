@@ -30,7 +30,7 @@ public class MeshW : MonoBehaviour
         {
             for (int j = 0; j <= xValue; j++)
             {
-                float y = Mathf.PerlinNoise(j * .3f, i * .3f) * 2f;
+                float y = Mathf.PerlinNoise((j  + this.transform.position.x)/5.0f, (i + this.transform.position.z)/5.0f) * 5;
                 vertices[vertix] = new Vector3(j, y, i);
                 vertix++;
             }
