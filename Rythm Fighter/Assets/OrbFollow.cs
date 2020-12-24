@@ -10,6 +10,7 @@ public class OrbFollow : MonoBehaviour
     public Vector3 displace;
     public Vector3 orbStart;
     public Vector3 targetStart;
+    public float rotSpeed = 200;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +26,7 @@ public class OrbFollow : MonoBehaviour
     {
         if(target.transform.position != lastPos)
         {
+            transform.Rotate(AudioAnalyzer.smoothedAmplitude * Time.deltaTime * rotSpeed, AudioAnalyzer.smoothedAmplitude * Time.deltaTime * rotSpeed, AudioAnalyzer.smoothedAmplitude * Time.deltaTime * rotSpeed);
             for(int i= 0; i<100; i++)
             {
                 displace = target.transform.position - targetStart;

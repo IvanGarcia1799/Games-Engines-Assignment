@@ -8,6 +8,7 @@ public class Orb : MonoBehaviour
     public int map = 0;
     public float radius = 3;
     public float scale = 10;
+    public float rotSpeed = 200;
     List<GameObject> orbList = new List<GameObject>();
     // Start is called before the first frame update
     void Start()
@@ -29,10 +30,12 @@ public class Orb : MonoBehaviour
     void Update()
     {
         int curs = 0;
+        transform.Rotate(0, AudioAnalyzer.smoothedAmplitude * Time.deltaTime * rotSpeed, 0);
         for(int i = 0 ; i < orbList.Count ; i ++)
         {
             Vector3 lscale = orbList[i].transform.localScale; 
             lscale.y = Mathf.Lerp(lscale.y, 0.2f + (Mathf.Abs(AudioAnalyzer.spectrum[curs]) * scale), Time.deltaTime * 10);
+            lscale.x = Mathf.Lerp(lscale.y, 0.1f + (Mathf.Abs(AudioAnalyzer.spectrum[curs]) * scale), Time.deltaTime * 10);
             orbList[i].transform.localScale = lscale;
             curs += map;
         }
